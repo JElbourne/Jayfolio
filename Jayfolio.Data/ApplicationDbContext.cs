@@ -21,6 +21,8 @@ namespace Jayfolio.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<ProjectSkill>()
                 .HasKey(t => new { t.ProjectId, t.SkillId });
         }
