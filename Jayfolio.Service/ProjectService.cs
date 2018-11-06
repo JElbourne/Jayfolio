@@ -3,6 +3,7 @@ using Jayfolio.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Jayfolio.Service
@@ -34,7 +35,12 @@ namespace Jayfolio.Service
 
         public Project GetById(int _id)
         {
-            throw new NotImplementedException();
+            var project = m_context.Projects.Where(p => p.Id == _id)
+                .Include(p => p.Posts).ThenInclude(pt => pt.User)
+                .Include(p => p.Posts).ThenInclude(pt => pt.Replies).ThenInclude(r => r.User)
+                .FirstOrDefault();
+
+            return project;
         }
 
         public Task UpdateProjectDescription(int _porjectId, string _newDescription)

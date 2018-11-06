@@ -8,7 +8,9 @@
         {
         <tr>
             <td>
-                @project.Title
+                <a asp-controller="Project" asp-action="Showcase" asp-route-id="@project.Id">
+                    @project.Title
+                </a>
             </td>
             <td>
                 @project.Description

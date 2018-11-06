@@ -35,5 +35,12 @@ namespace Jayfolio.Web.Controllers
 
             return View(model);
         }
+
+        public IActionResult Showcase(int id)
+        {
+            var project = m_projectService.GetById(id);
+
+            return View();
+        }
     }
 }
