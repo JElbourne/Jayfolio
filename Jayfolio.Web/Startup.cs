@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Jayfolio.Web.Services;
 using Jayfolio.Data;
 using Jayfolio.Data.Models;
+using Jayfolio.Service;
 
 namespace Jayfolio.Web
 {
@@ -31,6 +32,7 @@ namespace Jayfolio.Web
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddScoped<IProject, ProjectService>();
 
             services.AddMvc();
         }

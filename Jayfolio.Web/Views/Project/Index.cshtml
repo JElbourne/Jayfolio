@@ -1,0 +1,19 @@
+﻿@model Jayfolio.Web.Models.ProjectViewModels.ProjectIndexModel
+
+<h1>Projects</h1>
+
+<table class="table table-hover" id="proejctIndexTable">
+    <tbody>
+        @foreach (var project in Model.ProjectList)
+        {
+        <tr>
+            <td>
+                @project.Title
+            </td>
+            <td>
+                @project.Description
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
