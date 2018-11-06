@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jayfolio.Web", "Jayfolio.We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jayfolio.Data", "Jayfolio.Data\Jayfolio.Data.csproj", "{0853E92F-0F40-422B-9EDE-76BCE29BD000}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jayfolio.Service", "Jayfolio.Service\Jayfolio.Service.csproj", "{2425F809-ED26-476C-A55D-F21E3589125B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{0853E92F-0F40-422B-9EDE-76BCE29BD000}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0853E92F-0F40-422B-9EDE-76BCE29BD000}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0853E92F-0F40-422B-9EDE-76BCE29BD000}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2425F809-ED26-476C-A55D-F21E3589125B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2425F809-ED26-476C-A55D-F21E3589125B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2425F809-ED26-476C-A55D-F21E3589125B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2425F809-ED26-476C-A55D-F21E3589125B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
