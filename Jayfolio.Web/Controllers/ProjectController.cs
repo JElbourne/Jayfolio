@@ -37,9 +37,9 @@ namespace Jayfolio.Web.Controllers
             return View(m_model);
         }
 
-        public IActionResult Showcase(int _id)
+        public IActionResult Showcase(int id)
         {
-            var m_project = m_projectService.GetById(_id);
+            var m_project = m_projectService.GetById(id);
             var m_posts = m_project.Posts;
             var m_postListings = m_posts.Select(post => new PostListingModel
             {

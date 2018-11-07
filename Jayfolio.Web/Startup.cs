@@ -33,6 +33,7 @@ namespace Jayfolio.Web
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped<IProject, ProjectService>();
+            services.AddScoped<IPost, PostService>();
 
             services.AddMvc();
         }
