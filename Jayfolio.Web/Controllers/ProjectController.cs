@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Jayfolio.Data;
 using Jayfolio.Data.Models;
+using Jayfolio.Web.Models.PostViewModels;
 using Jayfolio.Web.Models.ProjectViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,15 +11,17 @@ namespace Jayfolio.Web.Controllers
     public class ProjectController : Controller
     {
         private readonly IProject m_projectService;
+        private readonly IPost m_postService;
 
-        public ProjectController(IProject _projectService)
+        public ProjectController(IProject _projectService, IPost _postService)
         {
             m_projectService = _projectService;
+            m_postService = _postService;
         }
 
         public IActionResult Index()
         {
-            var projects = m_projectService.GetAll()
+            var m_projects = m_projectService.GetAll()
                 .Select(project => new ProjectListingModel
                 {
                     Id = project.Id,
@@ -28,19 +29,55 @@ namespace Jayfolio.Web.Controllers
                     Description = project.Description
                 });
 
-            var model = new ProjectIndexModel
+            var m_model = new ProjectIndexModel
             {
-                ProjectList = projects
+                ProjectList = m_projects
             };
 
-            return View(model);
+            return View(m_model);
         }
 
-        public IActionResult Showcase(int id)
+        public IActionResult Showcase(int _id)
         {
-            var project = m_projectService.GetById(id);
+            var m_project = m_projectService.GetById(_id);
+            var m_posts = m_project.Posts;
+            var m_postListings = m_posts.Select(post => new PostListingModel
+            {
+                Id = post.Id,
+                AuthorId = post.User.Id,
+                Title = post.Title,
+                Content = post.Content,
+                MediaUrl = post.MediaUrl,
+                Created = post.Created,
+                RepliesCount = post.Replies.Count(),
+                Project = BuildProjectListing(post)
+            });
 
-            return View();
+            var m_model = new ProjectShowcaseModel
+            {
+                Posts = m_postListings,
+                Project = BuildProjectListing(m_project)
+            };
+
+            return View(m_model);
+        }
+
+        private ProjectListingModel BuildProjectListing(Post _post)
+        {
+            var m_project = _post.Project;
+            return BuildProjectListing(m_project);
+
+        }
+
+        private ProjectListingModel BuildProjectListing(Project _project)
+        {
+            return new ProjectListingModel
+            {
+                Id = _project.Id,
+                Title = _project.Title,
+                Description = _project.Description,
+                ImageUrl = _project.ImageUrl
+            };
         }
     }
 }
