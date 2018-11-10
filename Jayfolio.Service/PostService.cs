@@ -1,5 +1,6 @@
 ﻿using Jayfolio.Data;
 using Jayfolio.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +45,11 @@ namespace Jayfolio.Service
 
         public Post GetById(int id)
         {
-            throw new NotImplementedException();
+            return m_context.Posts.Where(post => post.Id == id)
+                .Include(post => post.User)
+                .Include(post => post.Replies).ThenInclude(reply => reply.User)
+                .Include(post => post.Project)
+                .First();
         }
 
         public IEnumerable<Post> GetFilteredPosts(string searchQuery)
