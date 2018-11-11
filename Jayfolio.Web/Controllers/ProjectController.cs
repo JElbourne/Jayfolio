@@ -49,7 +49,7 @@ namespace Jayfolio.Web.Controllers
                 Title = post.Title,
                 Content = post.Content,
                 MediaUrl = post.MediaUrl,
-                Created = post.Created,
+                DatePosted = post.Created.ToString(),
                 RepliesCount = post.Replies.Count(),
                 Project = BuildProjectListing(post)
             });

@@ -26,7 +26,7 @@ namespace Jayfolio.Web.Controllers
         {
             var m_model = BuildHomeIndexModel();
 
-            return View();
+            return View(m_model);
         }
 
         public IActionResult About()
