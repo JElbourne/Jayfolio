@@ -45,6 +45,7 @@ namespace Jayfolio.Web.Controllers
             {
                 Id = post.Id,
                 AuthorId = post.User.Id,
+                AuthorName = post.User.UserName,
                 Title = post.Title,
                 Content = post.Content,
                 MediaUrl = post.MediaUrl,

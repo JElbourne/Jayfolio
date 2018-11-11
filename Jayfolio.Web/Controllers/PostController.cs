@@ -6,6 +6,7 @@ using Jayfolio.Data;
 using Jayfolio.Data.Models;
 using Jayfolio.Web.Models.PostViewModels;
 using Jayfolio.Web.Models.ReplyViewModel;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Jayfolio.Web.Controllers
@@ -13,9 +14,15 @@ namespace Jayfolio.Web.Controllers
     public class PostController : Controller
     {
         private readonly IPost m_postService;
-        public PostController(IPost _postService)
+        private readonly IProject m_projectService;
+
+        private static UserManager<ApplicationUser> m_userManager;
+
+        public PostController(IPost _postService, IProject _projectService, UserManager<ApplicationUser> _userManager)
         {
             m_postService = _postService;
+            m_projectService = _projectService;
+            m_userManager = _userManager;
         }
 
         public IActionResult Index(int id)
@@ -37,6 +44,46 @@ namespace Jayfolio.Web.Controllers
             };
 
             return View(m_model);
+        }
+
+        public IActionResult Create(int id)
+        {
+            // Note: id is Project.Id
+            var m_project = m_projectService.GetById(id);
+
+            var m_model = new NewPostModel
+            {
+                ProjectId = m_project.Id,
+                ProjectName = m_project.Title,
+                ProjectImageUrl =m_project.ImageUrl,
+                AuthorName = User.Identity.Name
+            };
+
+            return View(m_model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddPost(NewPostModel model)
+        {
+            var m_userId = m_userManager.GetUserId(User);
+            var m_user = await m_userManager.FindByIdAsync(m_userId);
+
+            var m_post = BuildPost(model, m_user);
+
+            await m_postService.Add(m_post);
+
+            return RedirectToAction("Index", "Post", m_post.Id);
+        }
+
+        private Post BuildPost(NewPostModel _model, ApplicationUser _user)
+        {
+            return new Post
+            {
+                Title = _model.Title,
+                Content = _model.Content,
+                Created = DateTime.Now,
+                User = _user
+            };
         }
 
         private IEnumerable<PostReplyModel> BuildPostReplies(IEnumerable<PostReply> replies)
