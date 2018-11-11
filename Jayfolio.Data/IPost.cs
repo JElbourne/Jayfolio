@@ -10,6 +10,7 @@ namespace Jayfolio.Data
         IEnumerable<Post> GetAll();
         IEnumerable<Post> GetFilteredPosts(string searchQuery);
         IEnumerable<Post> GetPostsByProjectId(int id);
+        IEnumerable<Post> GetLatestPosts(int number);
 
         Task Add(Post newPost);
         Task Delete(int id);

@@ -58,6 +58,11 @@ namespace Jayfolio.Service
             throw new NotImplementedException();
         }
 
+        public IEnumerable<Post> GetLatestPosts(int number)
+        {
+            return GetAll().OrderByDescending(post => post.Created).Take(number);
+        }
+
         public IEnumerable<Post> GetPostsByProjectId(int id)
         {
             return m_context.Projects
