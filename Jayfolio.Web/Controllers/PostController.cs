@@ -66,23 +66,27 @@ namespace Jayfolio.Web.Controllers
         public async Task<IActionResult> AddPost(NewPostModel model)
         {
             var m_userId = m_userManager.GetUserId(User);
-            var m_user = await m_userManager.FindByIdAsync(m_userId);
+            var m_user = m_userManager.FindByIdAsync(m_userId).Result;
 
             var m_post = BuildPost(model, m_user);
 
+            // m_postService.Add(m_post).Wait(); // Block the current thread until the tast is complete
             await m_postService.Add(m_post);
 
-            return RedirectToAction("Index", "Post", m_post.Id);
+            return RedirectToAction("Index", "Post", new { id = m_post.Id } );
         }
 
         private Post BuildPost(NewPostModel _model, ApplicationUser _user)
         {
+            var m_project = m_projectService.GetById(_model.ProjectId);
+
             return new Post
             {
                 Title = _model.Title,
                 Content = _model.Content,
                 Created = DateTime.Now,
-                User = _user
+                User = _user,
+                Project = m_project
             };
         }
 

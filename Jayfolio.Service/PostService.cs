@@ -18,9 +18,10 @@ namespace Jayfolio.Service
             m_context = _context;
         }
 
-        public Task Add(Post newPost)
+        public async Task Add(Post newPost)
         {
-            throw new NotImplementedException();
+            m_context.Add(newPost);
+            await m_context.SaveChangesAsync();
         }
 
         public Task AddReply(PostReply reply)
