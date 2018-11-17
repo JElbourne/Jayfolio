@@ -1,0 +1,85 @@
+﻿@model Jayfolio.Web.Models.SearchViewModels.SearchResultModel
+
+
+<div class="container body-content">
+    <div class="row sectionHeader">
+        <div class="sectionHeading">
+            <span>Search Results for: @Model.SearchQuery</span>
+
+            <form asp-controller="Search" asp-action="Search" method="post">
+                <div class="searchForm">
+                    <input asp-for="SearchQuery" type="text" placeholder="Search..." class="searchBar" onfocus="clearThis(true)" />
+                    <button type="submit" class="btn btn-formSearch">
+                        <i class="material-icons">search</i>
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="row projectIndexContent">
+
+        @if (Model.EmptyStringResults)
+        {
+            <table class="table table-bordered table-hover" id="searchIndexTable">
+                <tbody>
+                    @foreach (var post in Model.Posts)
+                    {
+                        <tr>
+                            <td>
+                                <div class="projectLogo" style="background-image: url(@post.Project.ImageUrl)"></div>
+                                <div class="postData">
+                                    <div class="postTitle">
+                                        <a asp-controller="Post" asp-action="Index" asp-route-id="@post.Id">
+                                            @post.Title
+                                        </a>
+                                    </div>
+                                    <div class="projectSubTitle">
+                                        <div>
+                                            <span class="postAuthor">
+                                                Author:
+                                                <a asp-controller="Profile" asp-action="Detail" asp-route-id="@post.AuthorId">
+                                                    @post.AuthorName
+                                                </a>
+                                            </span>
+                                            in:
+                                            <span class="postProject">
+                                                <a asp-controller="Project" asp-action="Showcase" asp-route-id="@post.Project.Id">@post.Project.Title</a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="projectRepliesCount">
+                                    Replies: @post.RepliesCount
+                                </div>
+                            </td>
+                            <td>
+                                <div class="postDate">@post.DatePosted</div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="noPosts">
+                <i class="material-icons md-72">question_answer</i>
+                <h3>
+                    No search results found for @Model.SearchQuery.
+                </h3>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function clearThis(target) {
+            target.value = "";
+        }
+    </script>
+}
