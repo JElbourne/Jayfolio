@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Jayfolio.Service
@@ -61,6 +60,13 @@ namespace Jayfolio.Service
             return string.IsNullOrEmpty(searchQuery)
                 ? project.Posts
                 : project.Posts.Where(post
+                    => post.Title.Contains(searchQuery)
+                    || post.Content.Contains(searchQuery));
+        }
+
+        public IEnumerable<Post> GetFilteredPosts(string searchQuery)
+        {
+            return GetAll().Where(post
                     => post.Title.Contains(searchQuery)
                     || post.Content.Contains(searchQuery));
         }
