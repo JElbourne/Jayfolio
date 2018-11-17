@@ -22,9 +22,9 @@
                 {
                     <tr>
                         <td>
-                            <div class="projectLogo" style="background-image: url(@post.Project.ImageUrl); background-size=100%;"></div>
+                            <div class="projectLogo" style="background-image: url('@post.Project.ImageUrl');"></div>
                             <div class="postTitle">
-                                <a sap-controller="Post" asp-action="Index" asp-route-id="@post.Id">
+                                <a asp-controller="Post" asp-action="Index" asp-route-id="@post.Id">
                                     @post.Title
                                 </a>
                             </div>

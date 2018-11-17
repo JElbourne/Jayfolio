@@ -7,5 +7,6 @@ namespace Jayfolio.Web.Models.ProjectViewModels
     {
         public ProjectListingModel Project { get; set; }
         public IEnumerable<PostListingModel> Posts { get; set; }
+        public string SearchQuery { get; set; }
     }
 }
