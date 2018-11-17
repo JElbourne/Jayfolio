@@ -56,9 +56,13 @@ namespace Jayfolio.Service
                 .First();
         }
 
-        public IEnumerable<Post> GetFilteredPosts(string searchQuery)
+        public IEnumerable<Post> GetFilteredPosts(Project project, string searchQuery)
         {
-            throw new NotImplementedException();
+            return string.IsNullOrEmpty(searchQuery)
+                ? project.Posts
+                : project.Posts.Where(post
+                    => post.Title.Contains(searchQuery)
+                    || post.Content.Contains(searchQuery));
         }
 
         public IEnumerable<Post> GetLatestPosts(int number)

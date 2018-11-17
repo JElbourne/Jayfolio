@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="PostService.cs~RF4d92dd14.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Jayfolio.Data\Jayfolio.Data.csproj" />
   </ItemGroup>
 

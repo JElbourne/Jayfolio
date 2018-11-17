@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Jayfolio.Data;
 using Jayfolio.Data.Models;
@@ -37,10 +38,11 @@ namespace Jayfolio.Web.Controllers
             return View(m_model);
         }
 
-        public IActionResult Showcase(int id)
+        public IActionResult Showcase(int id, string searchQuery)
         {
             var m_project = m_projectService.GetById(id);
-            var m_posts = m_project.Posts;
+            var m_posts = m_postService.GetFilteredPosts(m_project, searchQuery).ToList();
+
             var m_postListings = m_posts.Select(post => new PostListingModel
             {
                 Id = post.Id,
@@ -61,6 +63,12 @@ namespace Jayfolio.Web.Controllers
             };
 
             return View(m_model);
+        }
+
+        [HttpPost]
+        public IActionResult Search(int id, string searchQuery)
+        {
+            return RedirectToAction("ShowCase", new { id, searchQuery });
         }
 
         private ProjectListingModel BuildProjectListing(Post _post)

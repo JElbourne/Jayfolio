@@ -8,7 +8,7 @@ namespace Jayfolio.Data
     {
         Post GetById(int id);
         IEnumerable<Post> GetAll();
-        IEnumerable<Post> GetFilteredPosts(string searchQuery);
+        IEnumerable<Post> GetFilteredPosts(Project project, string searchQuery);
         IEnumerable<Post> GetPostsByProjectId(int id);
         IEnumerable<Post> GetLatestPosts(int number);
 
